@@ -1,4 +1,4 @@
-export const revalidate = 100; 
+export const revalidate = 0; 
 import { sql } from "@vercel/postgres";
 
 export default async function Home() {

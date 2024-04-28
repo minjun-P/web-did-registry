@@ -62,3 +62,25 @@ export async function POST(
   return new Response(null,{status:200})
 }
 
+export async function DELETE(
+  request: Request,
+  { params } : { params : {did : string}}
+) {
+  const query = await sql`SELECT * FROM registry WHERE did=${params.did}`;
+  if (!query.rowCount) {
+    return Response.json({
+      msg : "등록되지 않은 did입니다"
+    },
+    {status : 400}
+  )
+  }
+  try {
+    await sql`DELETE FROM registry WHERE did=${params.did}`;
+  } catch(error) {
+    return new Response("something wrong",{status:400})
+  }
+  return new Response(null,{status:200})
+  
+
+}
+
