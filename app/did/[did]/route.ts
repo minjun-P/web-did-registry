@@ -21,7 +21,7 @@ export async function POST(
   { params } : { params : {did : string}}
 ) {
   const reqBody = await request.json();
-  const docHasDid = reqBody.did;
+  const docHasDid = reqBody.id;
   const did = params.did;
   if (!docHasDid) {
     return Response.json({
@@ -41,6 +41,17 @@ export async function POST(
     {status : 400}
     )
   }
+  const query = await sql`SELECT * FROM registry WHERE did=${params.did}`;
+  if (query.rowCount) {
+    return Response.json({
+      msg : "이미 존재하는 did입니다",
+      detail : {
+        did : did,
+      }
+    },
+    {status: 400}
+  )
+  }
   const now = new Date();
   try {
     await sql`INSERT INTO registry (did, did_doc, created_dt, updated_dt)
@@ -50,3 +61,4 @@ export async function POST(
   }
   return new Response(null,{status:200})
 }
+
