@@ -23,7 +23,14 @@ export default async function Home() {
         </div>
         
       </div>
-      <p>현재 {didDocs.rowCount}개의 did doc이 등록되어 있습니다</p>
+      <div className="w-full max-w-[600px] mx-4 flex flex-col gap-1 border p-2">
+        <h3 className="text-lg font-bold">현재 등록된 did list ({didDocs.rowCount}개)</h3>
+        {didDocs.rows.map((e,i) => (
+          <div key={i}>
+            {e.did}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
