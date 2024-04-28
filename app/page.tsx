@@ -4,7 +4,7 @@ import { sql } from "@vercel/postgres";
 export default async function Home() {
   const didDocs = await sql`SELECT * FROM registry`
   return (
-    <div className="w-full h-screen flex flex-col justify-center items-center gap-2">
+    <div className="w-full h-screen flex flex-col justify-center items-center gap-2 text-black">
       <h2 className="text-2xl font-bold">
         did web registry를 위한 임시 next js
       </h2>
