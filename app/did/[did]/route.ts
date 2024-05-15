@@ -21,16 +21,16 @@ export async function POST(
   { params } : { params : {did : string}}
 ) {
   const reqBody = await request.json();
-  const docHasDid = reqBody.id;
+  const didInDoc = reqBody.id;
   const did = params.did;
-  if (!docHasDid) {
+  if (!didInDoc) {
     return Response.json({
         msg : "body에 did 정보가 존재하지 않습니다."
       },
       {status : 400}
     )
   }
-  if (reqBody.did !== did) {
+  if (didInDoc !== did) {
     return Response.json({
       msg : "path의 did와 did doc 안의 did가 일치하지 않습니다",
       detail : {
